@@ -1,0 +1,48 @@
+<div class="verticalFull">
+  <p-toast></p-toast>
+  <p-card>
+    <form (ngSubmit)="login()" class="LogForm">
+      <h2 class="textCent textVerd1">Inicio de sesión</h2>
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="fa-regular fa-at"></i>
+        </p-inputGroupAddon>
+        <input
+          pInputText
+          placeholder="Correo Electrónico"
+          [(ngModel)]="email"
+          name="email"
+        />
+      </p-inputGroup>
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="fa-solid fa-key"></i>
+        </p-inputGroupAddon>
+        <input
+          pInputText
+          [(ngModel)]="password"
+          name="password"
+          type="password"
+          placeholder="Contraseña"
+          required
+        />
+      </p-inputGroup>
+      <p class="textVerd2">Ha olvidado Su contraseña?</p>
+      <div>
+        <p-button
+          class="full-width-button"
+          icon="fa-solid fa-lock"
+          type="submit"
+          label="Iniciar Sesión"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>
+
+<!-- upload.component.html -->
+<!-- <input type="file" (change)="uploadFile($event)" />
+<div *ngIf="uploadPercent | async as percent">Subiendo: {{ percent }}%</div>
+<div *ngIf="downloadURL">
+  <a [href]="downloadURL" target="_blank">Descargar archivo</a>
+</div> -->

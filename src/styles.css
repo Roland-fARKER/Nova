@@ -1,1 +1,58 @@
+@import "primeng/resources/themes/lara-dark-green/theme.css";
+@import "primeng/resources/primeng.css";
+
+:root {
+  --verde: #10b981;
+  --verde2: #a7f3da;
+  --verde3: #059666;
+}
+
 /* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url(./assets/bg.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100dvh;
+}
+
+.textCent {
+  text-align: center;
+}
+
+.textVerd1 {
+  color: #34d399;
+}
+
+.textVerd2 {
+  color: var(--verde2);
+}
+
+.full-width-button {
+  width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+  .contFull {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .devicefull{
+    min-width: 60rem;
+  }
+}
+
+.verticalFull{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100dvh;
+}

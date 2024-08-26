@@ -1,0 +1,13 @@
+.nav1{
+    display: flex;
+    width: 100%;
+    padding: 5px 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.head1{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
