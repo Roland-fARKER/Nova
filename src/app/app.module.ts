@@ -34,7 +34,7 @@ import { TagModule } from 'primeng/tag';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
-
+import { LoaderComponent } from './loader/loader.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +42,8 @@ import { ConfirmationService } from 'primeng/api';
     RegisterComponent,
     HomeComponent,
     UsersComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,

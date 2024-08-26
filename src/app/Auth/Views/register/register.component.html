@@ -1,7 +1,48 @@
-<form (ngSubmit)="onRegister()">
-  <input type="text" [(ngModel)]="firstName" name="firstName" placeholder="Nombre" required>
-  <input type="text" [(ngModel)]="lastName" name="lastName" placeholder="Apellidos" required>
-  <input type="email" [(ngModel)]="email" name="email" placeholder="Correo Electrónico" required>
-  <input type="password" [(ngModel)]="password" name="password" placeholder="Contraseña" required>
-  <button type="submit">Registrar</button>
-</form>
+<div class="verticalFull">
+  <p-toast></p-toast>
+  <p-card>
+    <form (ngSubmit)="onRegister()" class="LogForm" >
+      <h2 class="textCent textVerd1">Registro admin</h2>
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="fa-regular fa-user"></i>
+        </p-inputGroupAddon>
+        <input
+          pInputText
+          placeholder="Nombre"
+          [(ngModel)]="firstName"
+          name="firstName"
+        />
+      </p-inputGroup>
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="fa-regular fa-user"></i>
+        </p-inputGroupAddon>
+        <input
+          pInputText
+          placeholder="Apellidos"
+          [(ngModel)]="lastName"
+          name="lastName"
+        />
+      </p-inputGroup>
+     
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="fa-regular fa-user"></i>
+        </p-inputGroupAddon>
+        <input pInputText type="email" [(ngModel)]="email" name="email" placeholder="Correo Electrónico" required>
+      </p-inputGroup>
+      
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="fa-regular fa-user"></i>
+        </p-inputGroupAddon>
+        <input pInputText type="password" [(ngModel)]="password" name="password" placeholder="Contraseña" required>
+      </p-inputGroup>
+      <div style="display: flex; gap: 10px; justify-content: space-between;">
+        <p-button type="submit" label="Registrar" icon="fa-solid fa-pencil" ></p-button>
+      <p-button (onClick)="alLogin()" label="Ir al login" icon="fa-solid fa-lock" ></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>

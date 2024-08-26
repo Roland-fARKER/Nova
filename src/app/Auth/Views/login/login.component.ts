@@ -19,6 +19,8 @@ export class LoginComponent {
   uploadPercent: Observable<number | undefined> | undefined = undefined;
   downloadURL: string | undefined;
 
+  isLoader:boolean = false;
+
   constructor(
     private authService: AuthService,
     private storage: AngularFireStorage,
@@ -32,19 +34,23 @@ export class LoginComponent {
       return;
     }
 
+    this.isLoader = true;
     this.authService.login(this.email, this.password)
       .then(() => {
         this.messageService.add({severity:'success', summary:'Éxito', detail: 'Login exitoso'});
-        this.router.navigate(['/Home']);  // Redirigir a la ruta 'Home' en caso de éxito
+        this.isLoader = false;
+        this.router.navigate(['/Home']);
       })
       .catch(error => {
         console.error('Error en el login:', error);
+        this.isLoader = false;
         let errorMessage = 'Error desconocido. Por favor, intente nuevamente.';
         
         if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+          this.isLoader = false;
           errorMessage = 'Correo o contraseña incorrectos';
         }
-        
+        this.isLoader = false;
         this.messageService.add({severity:'error', summary:'Error', detail: errorMessage});
       });
   }

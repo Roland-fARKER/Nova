@@ -1,4 +1,5 @@
 <div class="verticalFull">
+  <app-loader *ngIf="isLoader" ></app-loader>
   <p-toast></p-toast>
   <p-card>
     <form (ngSubmit)="login()" class="LogForm">
