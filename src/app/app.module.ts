@@ -9,6 +9,7 @@ import { LoginComponent } from './Auth/Views/login/login.component';
 import { RegisterComponent } from './Auth/Views/register/register.component';
 import { UsersComponent } from './Core/components/users/users.component';
 import { CategoriesComponent } from './Core/components/categories/categories.component';
+import { RolComponent } from './Core/components/rol/rol.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from './environments/environment';
@@ -43,6 +44,7 @@ import { LoaderComponent } from './loader/loader.component';
     HomeComponent,
     UsersComponent,
     CategoriesComponent,
+    RolComponent,
     LoaderComponent
   ],
   imports: [
