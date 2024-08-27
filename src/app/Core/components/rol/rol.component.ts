@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Rol, RolService } from '../../services/rol.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 
 @Component({
@@ -17,7 +17,7 @@ export class RolComponent implements OnInit {
   displayDialog: boolean = false;
   isEdit: boolean = false;
 
-  constructor(private rolService: RolService, private messageService: MessageService) {}
+  constructor(private rolService: RolService, private messageService: MessageService, private confirmacion: ConfirmationService) { }
 
   ngOnInit(): void {
     this.loadRol();
@@ -59,11 +59,25 @@ export class RolComponent implements OnInit {
     }
   }
 
-  deleteRol(id: string): void {
-    this.rolService.deleteRol(id).then(() => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Rol deleted' });
-      this.loadRol();
-    });
+  deleteRol(id: string, name: string): void {
+    this.confirmacion.confirm({
+      message: `<strong style="text-align: center;" >${name}</strong> `,
+      header: 'Esta seguro de eliminar este registro? ',
+      icon: 'fa-solid fa-trash',
+      acceptButtonStyleClass: 'p-button-text p-button-text',
+      rejectButtonStyleClass: 'p-button-danger p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+      acceptLabel: 'Eliminar',
+      rejectLabel: 'Cancelar',
+
+      accept: () => {
+        this.rolService.deleteRol(id).then(() => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Rol deleted' });
+          this.loadRol();
+        });
+      }
+    })
   }
 
   onGlobalFilter(event: Event): void {

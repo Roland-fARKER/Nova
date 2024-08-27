@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Category, CategoryService } from '../../services/categories.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 
 @Component({
@@ -17,7 +17,7 @@ export class CategoriesComponent implements OnInit {
   displayDialog: boolean = false;
   isEdit: boolean = false;
 
-  constructor(private categoryService: CategoryService, private messageService: MessageService) {}
+  constructor(private categoryService: CategoryService, private messageService: MessageService, private confirmacion: ConfirmationService) { }
 
   ngOnInit(): void {
     this.loadCategories();
@@ -59,11 +59,25 @@ export class CategoriesComponent implements OnInit {
     }
   }
 
-  deleteCategory(id: string): void {
-    this.categoryService.deleteCategory(id).then(() => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Category deleted' });
-      this.loadCategories();
-    });
+  deleteCategory(id: string, name: string): void {
+    this.confirmacion.confirm({
+      message: `<strong style="text-align: center;" >${name}</strong> `,
+      header: 'Esta seguro de eliminar este registro? ',
+      icon: 'fa-solid fa-trash',
+      acceptButtonStyleClass: 'p-button-text p-button-text',
+      rejectButtonStyleClass: 'p-button-danger p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+      acceptLabel: 'Eliminar',
+      rejectLabel: 'Cancelar',
+
+      accept: () => {
+        this.categoryService.deleteCategory(id).then(() => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Category deleted' });
+          this.loadCategories();
+        });
+      }
+    })
   }
 
   onGlobalFilter(event: Event): void {
