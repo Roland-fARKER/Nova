@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
     this.items = [
       { label: 'Usuarios', icon: 'fa-solid fa-users' },
       { label: 'Categorias', icon: 'fa-solid fa-tags' },
+      { label: 'Roles', icon: 'fa-solid fa-users' },
     ];
 
     this.activeItem = this.items[0];

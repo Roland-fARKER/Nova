@@ -1,0 +1,48 @@
+<p-toast></p-toast>
+<div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0px;">
+  <!-- Barra de búsqueda -->
+  <div class="p-inputgroup" style="margin-bottom: 10px">
+    <span class="p-inputgroup-addon">
+      <i class="fa-solid fa-search"></i>
+    </span>
+    <input type="text" pInputText placeholder="Buscar roles" (input)="onGlobalFilter($event)" />
+  </div>
+  <p-button label="Agregar rol" icon="fa-solid fa-plus" (click)="openDialog()"></p-button>
+</div>
+<p-table #dt [value]="rol" [paginator]="true" [rows]="5" [globalFilterFields]="['name', 'state']">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Rol</th>
+      <th>Estado</th>
+      <th>Aciones</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rol>
+    <tr>
+      <td>{{ rol.name }}</td>
+      <td>
+        <p-tag *ngIf="rol.state" severity="success" value="Activo"></p-tag>
+        <p-tag *ngIf="!rol.state" severity="danger" value="Inactivo"></p-tag>
+      </td>
+      <td style="display: flex; gap: 5px">
+        <p-button icon="fa-solid fa-pencil" (click)="openDialog(rol)" [rounded]="true"></p-button>
+        <p-button icon="fa-solid fa-trash" (click)="deleteRol(rol.id, rol.name)" [rounded]="true"
+          severity="danger"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog header="Rol" [(visible)]="displayDialog" [modal]="true" [baseZIndex]="10000">
+  <div class="p-field">
+    <input id="name" type="text" pInputText placeholder="Nombre" [(ngModel)]="selectedRol.name" />
+  </div>
+  <div class="p-field">
+    <label for="state">Estado</label>
+    <p-inputSwitch id="state" [(ngModel)]="selectedRol.state"></p-inputSwitch>
+  </div>
+  <p-footer>
+    <p-button label="Guardar" icon="fa-solid fa-check" (click)="saveRol()"></p-button>
+    <p-button label="Cancelar" icon="fa-solid fa-times" (click)="displayDialog = false"></p-button>
+  </p-footer>
+</p-dialog>
