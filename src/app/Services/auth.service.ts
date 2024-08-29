@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import firebase from 'firebase/compat/app';
+import { Rol } from '../Core/Models/Rol.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private firestore: AngularFirestore,
-  ) {}
+  ) { }
 
   // Registro de usuario
   async register(
@@ -19,6 +20,7 @@ export class AuthService {
     firstName: string,
     lastName: string
   ) {
+    const urol: Rol = { id: 'koDJdzetaHAVk41XuiM5', name: 'user', state: true }
     try {
       const userCredential = await this.afAuth.createUserWithEmailAndPassword(
         email,
@@ -31,7 +33,8 @@ export class AuthService {
           email: email,
           firstName: firstName,
           lastName: lastName,
-          profilePhotoUrl: null
+          profilePhotoUrl: null,
+          rol: urol
         });
       }
       return userCredential;
@@ -61,7 +64,7 @@ export class AuthService {
       window.location.reload();
     });
   }
-  
+
 
   // Estado de autenticación
   getUser() {

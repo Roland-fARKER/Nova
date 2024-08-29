@@ -50,4 +50,6 @@ export class RolService {
   deleteRol(id: string): Promise<void> {
     return this.rolCollection.doc(id).delete();
   }
+
+  
 }

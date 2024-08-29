@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
-  providers:[MessageService]
+  providers: [MessageService]
 })
 export class RegisterComponent {
   email: string = '';
@@ -15,7 +15,7 @@ export class RegisterComponent {
   firstName: string = '';
   lastName: string = '';
 
-  constructor(private authService: AuthService, private messageService: MessageService,private router: Router ) { }
+  constructor(private authService: AuthService, private messageService: MessageService, private router: Router) { }
 
   onRegister() {
     if (this.email && this.password && this.firstName && this.lastName) {
@@ -23,8 +23,8 @@ export class RegisterComponent {
         .then(() => {
           console.log('Registro exitoso');
           this.messageService.add({
-            severity:'success', 
-            summary:'Exito', 
+            severity: 'success',
+            summary: 'Exito',
             detail: 'Registro exitoso, vallamos al login'
           });
           this.resetInputs()
@@ -32,29 +32,29 @@ export class RegisterComponent {
         .catch(error => {
           console.error('Error en el registro:', error);
           this.messageService.add({
-            severity:'error', 
-            summary:'Ocurrio un error', 
+            severity: 'error',
+            summary: 'Ocurrio un error',
             detail: 'Ha ocurrido un error desconocido'
           });
         });
     } else {
       console.error('Por favor, completa todos los campos');
       this.messageService.add({
-        severity:'error', 
-        summary:'Ocurrio un error', 
+        severity: 'error',
+        summary: 'Ocurrio un error',
         detail: 'Necesita completar todos los campos'
       });
     }
   }
 
-  resetInputs(){
+  resetInputs() {
     this.email = ''
     this.firstName = ''
     this.email = ''
     this.password = ''
   }
 
-  alLogin(){
+  alLogin() {
     this.router.navigate(['/Login']);
   }
 }

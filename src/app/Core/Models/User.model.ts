@@ -1,8 +1,11 @@
+import { Rol } from "./Rol.model";
+
 export interface User {
   email: string;
   firstName: string;
   lastName: string;
-  profilePhotoUrl?: string ;
+  profilePhotoUrl?: string;
   uid: string;
-  phone?: number
+  phone?: number;
+  rol?: Rol;
 }
