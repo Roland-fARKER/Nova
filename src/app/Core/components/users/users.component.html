@@ -4,7 +4,7 @@
   [tableStyle]="{ 'min-width': '50rem' }"
   [paginator]="true"
   [rows]="5"
-  [globalFilterFields]="['firstName','lastName', 'email']"
+  [globalFilterFields]="['firstName', 'lastName', 'email']"
 >
   <ng-template pTemplate="caption">
     <div class="flex">
@@ -30,12 +30,24 @@
   </ng-template>
   <ng-template pTemplate="body" let-us>
     <tr>
-      <p-avatar
-        [image]="us.profilePhotoUrl"
-        styleClass="mr-2"
-        size="large"
-        shape="circle"
-      />
+      <td>
+        <p-avatar
+          *ngIf="us.profilePhotoUrl; else noImage"
+          [image]="us.profilePhotoUrl"
+          styleClass="mr-2"
+          size="large"
+          shape="circle"
+        ></p-avatar>
+        <ng-template #noImage>
+          <p-avatar
+            label="{{ us.firstName.charAt(0) | uppercase }}"
+            styleClass="mr-2"
+            size="large"
+            shape="circle"
+            [style]="{ 'background-color': '#001122', color: '#34D399' }"
+          ></p-avatar>
+        </ng-template>
+      </td>
       <td>{{ us.firstName }}</td>
       <td>{{ us.lastName }}</td>
       <td>{{ us.email }}</td>
