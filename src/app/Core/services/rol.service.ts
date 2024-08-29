@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { User } from '../Models/User.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UserService } from './users.service';
 
 export interface Rol {
-  id?: string;  
+  id?: string;
   name: string;
   state: boolean;
 }
@@ -15,7 +17,7 @@ export interface Rol {
 export class RolService {
   private rolCollection = this.firestore.collection<Rol>('rol');
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore, private userService: UserService) { }
 
   // Obtener todas las categorías
   getRol(): Observable<Rol[]> {
@@ -51,5 +53,9 @@ export class RolService {
     return this.rolCollection.doc(id).delete();
   }
 
-  
+  isUserSuperAdmin(id: string): Observable<boolean> {
+    return this.userService.getUserByUid(id).pipe(
+      map(person => person?.rol?.id === 'jaYmR5IkerLG5DgGf2ol')
+    );
+  }
 }

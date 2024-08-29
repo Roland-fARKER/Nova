@@ -1,22 +1,12 @@
-<p-table
-  #dt2
-  [value]="users"
-  [tableStyle]="{ 'min-width': '50rem' }"
-  [paginator]="true"
-  [rows]="5"
-  [globalFilterFields]="['firstName', 'lastName', 'email']"
->
+<p-table #dt2 [value]="users" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5"
+  [globalFilterFields]="['firstName', 'lastName', 'email']">
   <ng-template pTemplate="caption">
     <div class="flex">
       <p-inputGroup>
         <p-inputGroupAddon>
-          <i class="fa-regular fa-at"></i>
+          <i class="fa-brands fa-searchengin"></i>
         </p-inputGroupAddon>
-        <input
-          pInputText
-          placeholder="Buscar Usuario"
-          (input)="onFilterGlobal($event)"
-        />
+        <input pInputText placeholder="Buscar Usuario" (input)="onFilterGlobal($event)" />
       </p-inputGroup>
     </div>
   </ng-template>
@@ -31,21 +21,11 @@
   <ng-template pTemplate="body" let-us>
     <tr>
       <td>
-        <p-avatar
-          *ngIf="us.profilePhotoUrl; else noImage"
-          [image]="us.profilePhotoUrl"
-          styleClass="mr-2"
-          size="large"
-          shape="circle"
-        ></p-avatar>
+        <p-avatar *ngIf="us.profilePhotoUrl; else noImage" [image]="us.profilePhotoUrl" styleClass="mr-2" size="large"
+          shape="circle"></p-avatar>
         <ng-template #noImage>
-          <p-avatar
-            label="{{ us.firstName.charAt(0) | uppercase }}"
-            styleClass="mr-2"
-            size="large"
-            shape="circle"
-            [style]="{ 'background-color': '#001122', color: '#34D399' }"
-          ></p-avatar>
+          <p-avatar label="{{ us.firstName.charAt(0) | uppercase }}" styleClass="mr-2" size="large" shape="circle"
+            [style]="{ 'background-color': '#001122', color: '#34D399' }"></p-avatar>
         </ng-template>
       </td>
       <td>{{ us.firstName }}</td>

@@ -28,7 +28,7 @@
       </td>
       <td style="display: flex; gap: 5px">
         <p-button icon="fa-solid fa-pencil" (click)="openDialog(rol)" [rounded]="true"></p-button>
-        <p-button icon="fa-solid fa-trash" (click)="deleteRol(rol.id, rol.name)" [rounded]="true"
+        <p-button *ngIf="superAdmin" icon="fa-solid fa-trash" (click)="deleteRol(rol.id, rol.name)" [rounded]="true"
           severity="danger"></p-button>
       </td>
     </tr>

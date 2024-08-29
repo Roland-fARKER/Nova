@@ -14,7 +14,7 @@ export class UserService {
   constructor(
     private firestore: AngularFirestore,
     private afAuth: AngularFireAuth
-  ) {}
+  ) { }
 
   // Obtener todos los usuarios
   getUsers(): Observable<User[]> {
