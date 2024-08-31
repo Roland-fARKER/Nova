@@ -1,4 +1,6 @@
 import { Rol } from "./Rol.model";
+import { Categories } from "./Categories.model";
+
 
 export interface User {
   email: string;
@@ -8,4 +10,5 @@ export interface User {
   uid: string;
   phone?: number;
   rol?: Rol;
+  categories?: Categories
 }

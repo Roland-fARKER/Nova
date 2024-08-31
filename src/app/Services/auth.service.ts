@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import firebase from 'firebase/compat/app';
 import { Rol } from '../Core/Models/Rol.model';
+import { Categories } from '../Core/Models/Categories.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,7 @@ export class AuthService {
     lastName: string
   ) {
     const urol: Rol = { id: 'koDJdzetaHAVk41XuiM5', name: 'user', state: true }
+    const ucategories: Categories = {id: 'koDJdzetaHAVk41XuiM5', name: 'user', state: true}
     try {
       const userCredential = await this.afAuth.createUserWithEmailAndPassword(
         email,
@@ -34,7 +36,8 @@ export class AuthService {
           firstName: firstName,
           lastName: lastName,
           profilePhotoUrl: null,
-          rol: urol
+          rol: urol,
+          categories: ucategories
         });
       }
       return userCredential;

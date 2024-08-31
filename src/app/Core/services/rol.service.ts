@@ -19,7 +19,7 @@ export class RolService {
 
   constructor(private firestore: AngularFirestore, private userService: UserService) { }
 
-  // Obtener todas las categorías
+  // Obtener todos los Roles
   getRol(): Observable<Rol[]> {
     return this.rolCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -30,25 +30,25 @@ export class RolService {
     );
   }
 
-  // Obtener una categoría por ID
+  // Obtener un Rol por ID
   getRole(id: string): Observable<Rol | undefined> {
     return this.firestore.doc<Rol>(`rol/${id}`).valueChanges().pipe(
       map(data => data ? { id, ...data } : undefined)
     );
   }
 
-  // Crear una nueva categoría
+  // Crear un nuevo Rol
   createRol(rol: Rol): Promise<void> {
     const id = this.firestore.createId(); // Generar un ID único
     return this.rolCollection.doc(id).set({ ...rol, id });
   }
 
-  // Actualizar una categoría existente
+  // Actualizar un Rol existente
   updateRol(id: string, rol: Rol): Promise<void> {
     return this.rolCollection.doc(id).update(rol);
   }
 
-  // Eliminar una categoría
+  // Eliminar un Rol
   deleteRol(id: string): Promise<void> {
     return this.rolCollection.doc(id).delete();
   }

@@ -16,11 +16,13 @@ export class CategoriesComponent implements OnInit {
   selectedCategory: Category = { name: '', state: true, id: '' }; // Inicializa con valores predeterminados
   displayDialog: boolean = false;
   isEdit: boolean = false;
+  superAdmin: boolean = false;
 
   constructor(private categoryService: CategoryService, private messageService: MessageService, private confirmacion: ConfirmationService) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.loadCategories();
+    this.isSuper();
   }
 
   loadCategories(): void {
@@ -84,6 +86,18 @@ export class CategoriesComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement && this.dt) {
       this.dt.filterGlobal(inputElement.value, 'contains');
+    }
+  }
+
+  isSuper() {
+    const userString = localStorage.getItem('user');
+
+    if (userString) {
+      const user = JSON.parse(userString);
+
+      this.categoryService.isUserSuperAdmin(user.uid).subscribe(isSuperAdmin => {
+        this.superAdmin = isSuperAdmin;
+      });
     }
   }
 }

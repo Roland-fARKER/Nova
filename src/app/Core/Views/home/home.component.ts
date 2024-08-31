@@ -121,6 +121,36 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  deletePhoto(): void {
+    if (this.currentUser && this.currentUser.profilePhotoUrl) {
+      // Eliminar la foto de Firebase Storage
+      const filePath = `imgProfileUser/photo_${this.currentUser.uid}`; 
+      const fileRef = this.storage.ref(filePath);
+  
+      fileRef.delete().subscribe(
+        () => {
+          console.log('Foto eliminada correctamente');
+          // Actualizar la foto de perfil del usuario en la base de datos
+          this.userService
+            .updateProfilePhotoUrl(this.currentUser!.uid, '') // Limpia la URL en la base de datos
+            .then(() => {
+              this.downloadURL = ''; // Limpia la URL de la foto en la interfaz
+              console.log('Foto de perfil eliminada correctamente');
+            })
+            .catch((error) => {
+              console.error('Error al actualizar la foto de perfil:', error);
+            });
+        },
+        (error) => {
+          console.error('Error al eliminar la foto:', error);
+        }
+      );
+    } else {
+      console.error('El usuario no tiene una foto de perfil o no está autenticado.');
+    }
+  }
+  
+
   onActiveItemChange(event: MenuItem) {
     this.activeItem = event;
   }

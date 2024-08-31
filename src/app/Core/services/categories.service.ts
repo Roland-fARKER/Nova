@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UserService } from './users.service';
 
 export interface Category {
   id?: string;  
@@ -15,7 +16,7 @@ export interface Category {
 export class CategoryService {
   private categoriesCollection = this.firestore.collection<Category>('categories');
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore, private userService: UserService) { }
 
   // Obtener todas las categorías
   getCategories(): Observable<Category[]> {
@@ -49,5 +50,11 @@ export class CategoryService {
   // Eliminar una categoría
   deleteCategory(id: string): Promise<void> {
     return this.categoriesCollection.doc(id).delete();
+  }
+
+  isUserSuperAdmin(id: string): Observable<boolean> {
+    return this.userService.getUserByUid(id).pipe(
+      map(person => person?.categories?.id === 'jaYmR5IkerLG5DgGf2ol')
+    );
   }
 }
