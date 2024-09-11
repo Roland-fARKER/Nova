@@ -1,50 +1,85 @@
 <p-confirmDialog></p-confirmDialog>
 
-  <div class="nav1">
-    <h2>Hello!</h2>
-    <div>
-      <p-button icon="fa-solid fa-user" (onClick)="verModal()" [rounded]="true"></p-button>
-      <p-button icon="fa-solid fa-right-from-bracket" (onClick)="onLogout()" [rounded]="true"></p-button>
-    </div>
+<div class="nav1">
+  <h2>Hello!</h2>
+  <div>
+    <!-- Cambiar para mostrar la inicial si no hay foto -->
+    <p-avatar 
+      *ngIf="currentUser?.profilePhotoUrl; else noPhoto" 
+      [image]="currentUser?.profilePhotoUrl" 
+      (click)="verModal()" 
+      styleClass="mr-2" 
+      size="large" 
+      shape="circle"
+      [style]="{ 'cursor': 'pointer' }">
+    </p-avatar>
+
+    <!-- Mostrar la inicial del nombre si no hay foto -->
+    <ng-template #noPhoto>
+      <p-avatar 
+        label="{{ currentUser?.firstName?.charAt(0) }}" 
+        (click)="verModal()" 
+        styleClass="mr-2" 
+        size="large" 
+        shape="circle"
+        [style]="{ 'cursor': 'pointer', 'background-color': '#ccc', 'color': '#fff' }">
+      </p-avatar>
+    </ng-template>
+
+
+    <p-button icon="fa-solid fa-right-from-bracket" (onClick)="onLogout()" [rounded]="true"></p-button>
   </div>
-  
-  <div class="contFull">
-    <p-card [style]="{ 'max-width': '70rem'}" styleClass="devicefull">
-      <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
-      <div style="background-color: #1f2937">
-        <app-users *ngIf="activeItem?.label === 'Usuarios'"></app-users>
-        <app-categories *ngIf="activeItem?.label === 'Categorias'"></app-categories>
-        <app-rol *ngIf="activeItem?.label === 'Roles'"></app-rol>
-      </div>
-    </p-card>
-  </div>
-  
-  <p-dialog header="Edit Profile" [modal]="true" [(visible)]="userModal" [style]="{ width: '25rem' }">
-    <div class="head1">
-      <p-avatar [image]="currentUser?.profilePhotoUrl" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
-  
-      <div class="head1">
-        <h3><i class="fa-solid fa-user"></i> {{ currentUser?.firstName }}</h3>
-        <h3>{{ currentUser?.lastName }}</h3>
-      </div>
+</div>
+
+<div class="contFull">
+  <p-card [style]="{ 'max-width': '70rem'}" styleClass="devicefull">
+    <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
+    <div style="background-color: #1f2937">
+      <app-users *ngIf="activeItem?.label === 'Usuarios'"></app-users>
+      <app-categories *ngIf="activeItem?.label === 'Categorias'"></app-categories>
+      <app-rol *ngIf="activeItem?.label === 'Roles'"></app-rol>
     </div>
-  
-    <p><i class="fa-solid fa-at"></i> {{ currentUser?.email }}</p>
-  
-    <!-- Contenedor para alinear botones en horizontal -->
-    <div style="display: flex; gap: 10px; align-items: center;">
-      <!-- Subir nueva foto de perfil -->
-      <p-fileUpload mode="basic" name="file" accept="image/*" maxFileSize="1000000" 
-        (onSelect)="onSelect($event)" (onUpload)="onUpload($event)" 
-        chooseLabel="Cambiar foto de perfil" uploadLabel="Subir archivo" cancelLabel="Cancelar">
-      </p-fileUpload>
+  </p-card>
+</div>
+
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="userModal" [style]="{ width: '25rem' }">
+  <div class="head1">
     
-      <!-- Botón para eliminar foto de perfil -->
-      <p-button label="Eliminar Foto de Perfil" icon="fa-solid fa-trash" 
-        (onClick)="deletePhoto()" styleClass="p-button-danger">
-      </p-button>
+    <p-avatar 
+      *ngIf="currentUser?.profilePhotoUrl; else noPhotoModal" 
+      [image]="currentUser?.profilePhotoUrl" 
+      styleClass="mr-2" 
+      size="xlarge" 
+      shape="circle">
+    </p-avatar>
+
+    <ng-template #noPhotoModal>
+      <p-avatar 
+        label="{{ currentUser?.firstName?.charAt(0) }}" 
+        styleClass="mr-2" 
+        size="xlarge" 
+        shape="circle"
+        [style]="{ 'background-color': '#ccc', 'color': '#fff' }">
+      </p-avatar>
+    </ng-template>
+    
+    <div class="head1">
+      <h3><i class="fa-solid fa-user"></i> {{ currentUser?.firstName }}</h3>
+      <h3>{{ currentUser?.lastName }}</h3>
     </div>
-  
-  </p-dialog>
-  
-  
+  </div>
+
+  <p><i class="fa-solid fa-at"></i> {{ currentUser?.email }}</p>
+
+  <div style="display: flex; gap: 10px; align-items: center;">
+    <p-fileUpload mode="basic" name="file" accept="image/*" maxFileSize="1000000" 
+      (onSelect)="onSelect($event)" (onUpload)="onUpload($event)" 
+      chooseLabel="Cambiar foto de perfil" uploadLabel="Subir archivo" cancelLabel="Cancelar">
+    </p-fileUpload>
+
+    <p-button label="Eliminar Foto de Perfil" icon="fa-solid fa-trash" 
+      (onClick)="deletePhoto()" styleClass="p-button-danger">
+    </p-button>
+  </div>
+
+</p-dialog>
