@@ -52,9 +52,4 @@ export class CategoryService {
     return this.categoriesCollection.doc(id).delete();
   }
 
-  isUserSuperAdmin(id: string): Observable<boolean> {
-    return this.userService.getUserByUid(id).pipe(
-      map(person => person?.categories?.id === 'jaYmR5IkerLG5DgGf2ol')
-    );
-  }
 }

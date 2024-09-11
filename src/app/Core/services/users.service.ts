@@ -41,7 +41,18 @@ export class UserService {
     );
   }
 
+   // Actualizar un usuario
+   updateUser(uid: string, userData: Partial<User>): Promise<void> {
+    return this.firestore.doc<User>(`users/${uid}`).update(userData);
+  }
+
   updateProfilePhotoUrl(uid: string, newPhotoUrl: string): Promise<void> {
     return this.firestore.doc<User>(`users/${uid}`).update({ profilePhotoUrl: newPhotoUrl });
+  }
+
+  isSuperAdmin(id: string): Observable<boolean>{
+    return this.getUserByUid(id).pipe(
+      map(user => user?.rol?.id === 'jaYmR5IkerLG5DgGf2ol')
+    )
   }
 }

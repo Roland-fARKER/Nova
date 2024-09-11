@@ -36,6 +36,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { LoaderComponent } from './loader/loader.component';
+import { DropdownModule } from 'primeng/dropdown';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,8 +74,9 @@ import { LoaderComponent } from './loader/loader.component';
     InputSwitchModule,
     TagModule,
     ReactiveFormsModule,
-    ConfirmDialogModule
-  ],
+    ConfirmDialogModule,
+    DropdownModule,
+],
   providers: [ MessageService, ConfirmationService ],
   bootstrap: [AppComponent]
 })export class AppModule {}

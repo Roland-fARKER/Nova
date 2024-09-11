@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { Rol, RolService } from '../../services/rol.service';
+import { RolService } from '../../services/rol.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { Rol } from '../../Models/Rol.model';
 
 @Component({
   selector: 'app-rol',

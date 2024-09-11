@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Category, CategoryService } from '../../services/categories.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { UserService } from '../../services/users.service';
 
 @Component({
   selector: 'app-categories',
@@ -18,7 +19,12 @@ export class CategoriesComponent implements OnInit {
   isEdit: boolean = false;
   superAdmin: boolean = false;
 
-  constructor(private categoryService: CategoryService, private messageService: MessageService, private confirmacion: ConfirmationService) { }
+  constructor(
+    private categoryService: CategoryService,
+    private messageService: MessageService,
+    private confirmacion: ConfirmationService,
+    private usersService: UserService
+  ) {}
 
   async ngOnInit() {
     this.loadCategories();
@@ -26,7 +32,9 @@ export class CategoriesComponent implements OnInit {
   }
 
   loadCategories(): void {
-    this.categoryService.getCategories().subscribe(categories => this.categories = categories);
+    this.categoryService
+      .getCategories()
+      .subscribe((categories) => (this.categories = categories));
   }
 
   openDialog(category?: Category): void {
@@ -41,20 +49,37 @@ export class CategoriesComponent implements OnInit {
   }
 
   saveCategory(): void {
-    if (!this.selectedCategory.name || this.selectedCategory.name.trim() === '') {
-      this.messageService.add({ severity: 'warn', summary: 'Validation Error', detail: 'Category name is required' });
+    if (
+      !this.selectedCategory.name ||
+      this.selectedCategory.name.trim() === ''
+    ) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Validation Error',
+        detail: 'Category name is required',
+      });
       return;
     }
 
     if (this.isEdit) {
-      this.categoryService.updateCategory(this.selectedCategory.id!, this.selectedCategory).then(() => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Category updated' });
-        this.loadCategories();
-        this.displayDialog = false;
-      });
+      this.categoryService
+        .updateCategory(this.selectedCategory.id!, this.selectedCategory)
+        .then(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Category updated',
+          });
+          this.loadCategories();
+          this.displayDialog = false;
+        });
     } else {
       this.categoryService.createCategory(this.selectedCategory).then(() => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Category created' });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Category created',
+        });
         this.loadCategories();
         this.displayDialog = false;
       });
@@ -75,11 +100,15 @@ export class CategoriesComponent implements OnInit {
 
       accept: () => {
         this.categoryService.deleteCategory(id).then(() => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Category deleted' });
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Category deleted',
+          });
           this.loadCategories();
         });
-      }
-    })
+      },
+    });
   }
 
   onGlobalFilter(event: Event): void {
@@ -91,13 +120,13 @@ export class CategoriesComponent implements OnInit {
 
   isSuper() {
     const userString = localStorage.getItem('user');
-
     if (userString) {
       const user = JSON.parse(userString);
-
-      this.categoryService.isUserSuperAdmin(user.uid).subscribe(isSuperAdmin => {
-        this.superAdmin = isSuperAdmin;
-      });
+      this.usersService
+        .isSuperAdmin(user.uid)
+        .subscribe((isSuperAdmin) => {
+          this.superAdmin = isSuperAdmin;
+        });
     }
   }
 }

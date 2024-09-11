@@ -4,12 +4,7 @@ import { User } from '../Models/User.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserService } from './users.service';
-
-export interface Rol {
-  id?: string;
-  name: string;
-  state: boolean;
-}
+import { Rol } from '../Models/Rol.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +22,12 @@ export class RolService {
         const id = a.payload.doc.id;
         return { id, ...data };
       }))
+    );
+  }
+
+  getActiveRoles(): Observable<Rol[]>{
+    return this.getRol().pipe(
+      map(roles => roles.filter(role => role.state))
     );
   }
 

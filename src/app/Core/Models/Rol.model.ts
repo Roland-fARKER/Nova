@@ -1,5 +1,5 @@
 export interface Rol {
-  id: string;
+  id?: string;
   name: string;
   state: boolean
 }
